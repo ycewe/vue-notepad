@@ -42,10 +42,10 @@ class NoteRepository extends EventEmitter {
     this.ref.push({ title, content }, onComplete);
   }
   update({ key, title = '', content = '' }, onComplete) {
-    this.ref.ref(key).update({ title, content }, onComplete);
+    this.ref.child(key).update({ title, content }, onComplete);
   }
   remove({ key }, onComplete) {
-    this.ref.ref(key).remove(onComplete);
+    this.ref.child(key).remove(onComplete);
   }
   findIndex(notes, key) {
     return notes.findIndex(note => note.key === key);
