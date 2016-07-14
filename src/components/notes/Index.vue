@@ -1,10 +1,11 @@
 <template>
-  <div class="notes">
+  <div class="notes" v-el:notes>
     <note v-for="note in notes" :note="note"></note>
   </div>
 </template>
 <script>
   import firebase from 'firebase';
+  import Masonry from 'masonry-layout';
   import Note from './Note';
 
   export default {
@@ -17,6 +18,12 @@
       };
     },
     ready() {
+      const masonry = new Masonry(this.$els.notes, {
+        itemSelector: '.note',
+        columnWidth: 240,
+        gutter: 16,
+        fitWidth: true,
+      });
       const config = {
         apiKey: 'AIzaSyB31zKN-7XIwpTwFzgkEY-kFrXqP72n1Ao',
         authDomain: 'alexander-b2c0d.firebaseapp.com',
@@ -28,12 +35,17 @@
       firebase.database().ref('notes').on('child_added', (snapshot) => {
         const note = snapshot.val();
         this.notes.unshift(note);
+        this.$nextTick(() => {
+          masonry.reloadItems();
+          masonry.layout();
+        });
       });
     },
   };
 </script>
+
 <style>
   .notes {
-    padding: 0 100px;
+    margin: 0 auto;
   }
 </style>
