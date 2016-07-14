@@ -5,9 +5,9 @@
 </template>
 
 <script>
-  import firebase from 'firebase';
   import Masonry from 'masonry-layout';
   import Note from './Note';
+  import noteRepository from '../../data/NoteRepository';
 
   export default {
     components: {
@@ -18,28 +18,33 @@
         notes: [],
       };
     },
+    watch: {
+      notes: {
+        handler() {
+          this.masonry.reloadItems();
+          this.masonry.layout();
+        },
+        deep: true,
+      },
+    },
     ready() {
-      const masonry = new Masonry(this.$els.notes, {
+      this.masonry = new Masonry(this.$els.notes, {
         itemSelector: '.note',
         columnWidth: 240,
         gutter: 16,
         fitWidth: true,
       });
-      const config = {
-        apiKey: 'AIzaSyB31zKN-7XIwpTwFzgkEY-kFrXqP72n1Ao',
-        authDomain: 'alexander-b2c0d.firebaseapp.com',
-        databaseURL: 'https://alexander-b2c0d.firebaseio.com',
-        storageBucket: 'alexander-b2c0d.appspot.com',
-      };
-      firebase.initializeApp(config);
-
-      firebase.database().ref('notes').on('child_added', (snapshot) => {
-        const note = snapshot.val();
+      noteRepository.on('added', (note) => {
         this.notes.unshift(note);
-        this.$nextTick(() => {
-          masonry.reloadItems();
-          masonry.layout();
-        });
+      });
+      noteRepository.on('changed', ({ key, title, content }) => {
+        const outdatedNote = noteRepository.find(this.notes, key);
+        outdatedNote.title = title;
+        outdatedNote.content = content;
+      });
+      noteRepository.on('removed', ({ key }) => {
+        const noteToRemove = noteRepository.find(this.notes, key);
+        this.notes.$remove(noteToRemove);
       });
     },
   };
