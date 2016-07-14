@@ -15,17 +15,19 @@
   .note {
     background: #fff;
     border-radius: 2px;
-    box-shadow: 0 2px 5px #ccc;
+    box-shadow: 0 2px 8px grey;
     padding: 10px;
     width: 240px;
     margin: 8px 0;
   }
   .note h1 {
-    font-size: 1.1em;
+    font-size: 18px;
     margin-bottom: 6px;
+    color: darkcyan;
   }
   .note pre {
-    font-size: 1.1em;
+    color: green;
+    font-size: 18px;
     margin-bottom: 10px;
     white-space: pre-wrap;
     word-wrap: break-word;;

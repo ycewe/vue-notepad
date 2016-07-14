@@ -3,6 +3,7 @@
     <note v-for="note in notes" :note="note"></note>
   </div>
 </template>
+
 <script>
   import firebase from 'firebase';
   import Masonry from 'masonry-layout';

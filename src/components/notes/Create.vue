@@ -1,7 +1,7 @@
 <template>
   <form class="create-note" v-on:submit.prevent="createNote()">
     <input name="title" v-model="title" placeholder="Title" />
-    <textarea name="content" v-model="content" placeholder="Notes here.." rows="3"></textarea>
+    <textarea name="content" v-model="content" placeholder="Notes here.." rows="2"></textarea>
     <button type="submit">+</button>
   </form>
 </template>
@@ -37,32 +37,59 @@
 <style>
   form.create-note {
     position: relative;
-    width: 480px;
+    width: 90%;
     margin: 15px auto;
-    background: #fff;
-    padding: 15px;
+    background: lightseagreen;
     border-radius: 2px;
-    box-shadow: 0 1px 5px #ccc;
+    box-shadow: 0 3px 8px grey;
   }
-  form.create-note input, form.create-note textarea {
+  form.create-note input {
     width: 100%;
     border: none;
-    padding: 4px;
+    padding: 12px;
     outline: none;
-    font-size: 1.2em;
+    font-size: 20px;
+    background: teal;
+    color: white;
+  }
+  form.create-note textarea {
+    width: 100%;
+    border: none;
+    padding: 12px;
+    outline: none;
+    font-size: 20px;
+    background: lightseagreen;
+    color: white;
   }
   form.create-note button {
     position: absolute;
-    right: 18px;
-    bottom: -18px;
+    right: 15px;
+    bottom: -20px;
     background: #41b883;
     color: #fff;
     border: none;
     border-radius: 50%;
-    width: 36px;
-    height: 36px;
+    width: 50px;
+    height: 50px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     cursor: pointer;
     outline: none;
+    font-size: 25px;
+  }
+  ::-webkit-input-placeholder  { /* Chrome */
+    color: white;
+    opacity: 0.8;
+  }
+  :-ms-input-placeholder { /* IE 10+ */
+    color: white;
+    opacity: 0.5;
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    color: white;
+    opacity: 0.5;
+  }
+  :-moz-placeholder { /* Firefox 4 - 18 */
+    color: white;
+    opacity: 0.5;
   }
 </style>
