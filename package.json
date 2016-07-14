@@ -1,5 +1,5 @@
 {
-  "name": "gkeep-vueifire",
+  "name": "alexander",
   "version": "1.0.0",
   "description": "A Vue.js project",
   "author": "Eric Ewe <eric.ewe@zalora.com>",
@@ -12,8 +12,9 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
-    "vue": "^1.0.21",
-    "babel-runtime": "^6.0.0"
+    "babel-runtime": "^6.0.0",
+    "firebase": "^3.2.0",
+    "vue": "^1.0.21"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
