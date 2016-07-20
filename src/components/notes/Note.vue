@@ -15,7 +15,10 @@
     methods: {
       remove() {
         noteRepository.remove(this.note, (err) => {
-          if (err) throw err;
+          if (err) {
+            return this.$dispatch('alert', { type: 'error', message: 'Failed to delete note' });
+          }
+          return this.dispatch('alert', { type: 'success', message: 'Note successfully deleted' });
         });
       },
     },

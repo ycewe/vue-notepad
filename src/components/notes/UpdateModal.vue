@@ -16,14 +16,20 @@
     methods: {
       remove() {
         noteRepository.remove(this.note, (err) => {
-          if (err) throw err;
+          if (err) {
+            return this.$dispatch('alert', { type: 'error', message: 'Failed to delete note' });
+          }
           this.dismissModal();
+          return this.$dispatch('alert', { type: 'success', message: 'Note successfully deleted' });
         });
       },
       update() {
         noteRepository.update(this.note, (err) => {
-          if (err) throw err;
+          if (err) {
+            return this.$dispatch('alert', { type: 'error', message: 'Failed to update note' });
+          }
           this.dismissModal();
+          return this.$dispatch('alert', { type: 'success', message: 'Note successfully updated' });
         });
       },
       dismissModal() {

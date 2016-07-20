@@ -20,9 +20,13 @@
       createNote() {
         if (this.title.trim() || this.content.trim()) {
           noteRepository.create({ title: this.title, content: this.content }, (err) => {
-            if (err) throw err;
+            if (err) {
+              return this.$dispatch('alert', { type: 'error', message: 'Failed to create note' });
+            }
             this.title = '';
             this.content = '';
+            return this.$dispatch('success',
+              { type: 'success', message: 'Note successfully created' });
           });
         }
       },
