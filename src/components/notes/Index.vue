@@ -51,6 +51,7 @@
         const noteToRemove = noteRepository.find(this.notes, key);
         this.notes.$remove(noteToRemove);
       });
+      noteRepository.attachFirebaseListeners();
     },
   };
 </script>

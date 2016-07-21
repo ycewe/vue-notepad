@@ -13,7 +13,6 @@ class NoteRepository extends EventEmitter {
   constructor() {
     super();
     this.ref = firebase.database().ref('notes');
-    this.attachFirebaseListeners();
   }
   attachFirebaseListeners() {
     this.ref.on('child_added', this.onAdded, this);
