@@ -1,28 +1,19 @@
 <template>
   <div>
     <alerts :alerts="alerts"></alerts>
-    <create-note-form></create-note-form>
-    <notes></notes>
-    <update-modal :note.sync="selectedNote"></update-modal>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-  import Notes from './components/notes/Index';
-  import CreateNoteForm from './components/notes/Create';
-  import UpdateModal from './components/notes/UpdateModal';
   import Alerts from './components/Alerts';
 
   export default {
     components: {
-      Notes,
-      CreateNoteForm,
-      UpdateModal,
       Alerts,
     },
     data() {
       return {
-        selectedNote: null,
         alerts: [],
       };
     },
@@ -32,9 +23,6 @@
         setTimeout(() => {
           this.alerts.$remove(alert);
         }, alert.duration || 1500);
-      },
-      'note.selected': function openUpdateModal(note) {
-        this.selectedNote = note;
       },
     },
   };
@@ -52,5 +40,10 @@
   body {
     background: mintcream;
     padding: 0 16px;
+  }
+  .clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
   }
 </style>
