@@ -25,7 +25,7 @@
             }
             this.title = '';
             this.content = '';
-            return this.$dispatch('success',
+            return this.$dispatch('alert',
               { type: 'success', message: 'Note successfully created' });
           });
         }
