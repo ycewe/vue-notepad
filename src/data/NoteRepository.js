@@ -1,14 +1,6 @@
 import firebase from 'firebase';
 import EventEmitter from 'events';
 
-const config = {
-  apiKey: 'AIzaSyB31zKN-7XIwpTwFzgkEY-kFrXqP72n1Ao',
-  authDomain: 'alexander-b2c0d.firebaseapp.com',
-  databaseURL: 'https://alexander-b2c0d.firebaseio.com',
-  storageBucket: 'alexander-b2c0d.appspot.com',
-};
-firebase.initializeApp(config);
-
 class NoteRepository extends EventEmitter {
   constructor() {
     super();

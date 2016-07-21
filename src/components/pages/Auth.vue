@@ -24,6 +24,7 @@
 </template>
 
 <script>
+  import Auth from '../../data/Auth';
   export default {
     data() {
       return {
@@ -32,6 +33,32 @@
         confirmPassword: '',
         wantsToSignUp: false,
       };
+    },
+    methods: {
+      signUpWithPassword() {
+        if (this.password === this.confirmPassword) {
+          Auth.signUpWithPassword(this.email, this.password)
+          .then(() => this.signInWithPassword())
+          .then(() => this.$dispatch('alert',
+          { type: 'success', message: 'Signed up successfully' }))
+          .catch((error) => this.$dispatch('alert',
+          { type: 'error', message: error.message }));
+        }
+      },
+      signInWithPassword() {
+        return Auth.signInWithPassword(this.email, this.password)
+        .then((userData) => {
+          this.$dispatch('alert',
+            { type: 'success', message: 'Signed in successfully' });
+          this.onSignedIn();
+          return userData;
+        })
+        .catch((error) => this.$dispatch('alert',
+          { type: 'error', message: error.message }));
+      },
+      onSignedIn() {
+        this.$router.go({ name: 'notes' });
+      },
     },
   };
 </script>
