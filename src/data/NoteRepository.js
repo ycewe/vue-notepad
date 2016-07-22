@@ -2,14 +2,25 @@ import firebase from 'firebase';
 import EventEmitter from 'events';
 
 class NoteRepository extends EventEmitter {
+  get uid() {
+    return firebase.auth().currentUser.uid;
+  }
+  get notesRef() {
+    return this.ref.child(`users/${this.uid}/notes`);
+  }
   constructor() {
     super();
     this.ref = firebase.database().ref('notes');
   }
   attachFirebaseListeners() {
-    this.ref.on('child_added', this.onAdded, this);
-    this.ref.on('child_removed', this.onRemoved, this);
-    this.ref.on('child_changed', this.onChanged, this);
+    this.notesRef.on('child_added', this.onAdded, this);
+    this.notesRef.on('child_removed', this.onRemoved, this);
+    this.notesRef.on('child_changed', this.onChanged, this);
+  }
+  detachFirebaseListeners() {
+    this.notesRef.off('child_added', this.onAdded, this);
+    this.notesRef.off('child_removed', this.onRemoved, this);
+    this.notesRef.off('child_changed', this.onChanged, this);
   }
   onAdded(snapshot) {
     const note = this.snapshotToNote(snapshot);
@@ -30,13 +41,13 @@ class NoteRepository extends EventEmitter {
     return note;
   }
   create({ title = '', content = '' }, onComplete) {
-    this.ref.push({ title, content }, onComplete);
+    this.notesRef.push({ title, content }, onComplete);
   }
   update({ key, title = '', content = '' }, onComplete) {
-    this.ref.child(key).update({ title, content }, onComplete);
+    this.notesRef.child(key).update({ title, content }, onComplete);
   }
   remove({ key }, onComplete) {
-    this.ref.child(key).remove(onComplete);
+    this.notesRef.child(key).remove(onComplete);
   }
   findIndex(notes, key) {
     return notes.findIndex(note => note.key === key);
