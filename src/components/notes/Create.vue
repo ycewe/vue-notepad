@@ -38,7 +38,7 @@
   form.create-note {
     position: relative;
     width: 90%;
-    margin: 15px auto;
+    margin: 40px auto 15px;
     background: lightseagreen;
     border-radius: 2px;
     box-shadow: 0 3px 8px grey;

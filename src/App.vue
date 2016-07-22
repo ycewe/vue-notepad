@@ -1,5 +1,6 @@
 <template>
   <div>
+    <header-bar></header-bar>
     <alerts :alerts="alerts"></alerts>
     <router-view></router-view>
   </div>
@@ -7,10 +8,12 @@
 
 <script>
   import Alerts from './components/Alerts';
+  import HeaderBar from './components/HeaderBar';
 
   export default {
     components: {
       Alerts,
+      HeaderBar,
     },
     data() {
       return {
@@ -23,6 +26,9 @@
         setTimeout(() => {
           this.alerts.$remove(alert);
         }, alert.duration || 1500);
+      },
+      search: function search(searchText) {
+        this.$broadcast('search', searchText);
       },
     },
   };
@@ -39,7 +45,6 @@
   }
   body {
     background: mintcream;
-    padding: 0 16px;
   }
   .clearfix:after {
     content: "";

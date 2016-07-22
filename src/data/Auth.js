@@ -11,7 +11,7 @@ firebase.initializeApp(config);
 export default {
   ref: firebase.auth(),
   onAuth(authCallback) {
-    this.ref.onAuth(authCallback);
+    this.ref.onAuthStateChanged(authCallback);
   },
   getAuth() {
     return this.ref.currentUser;
